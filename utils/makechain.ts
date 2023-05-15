@@ -9,9 +9,9 @@ Chat History:
 Follow Up Input: {question}
 Standalone question:`;
 
-const QA_PROMPT = `You are a helpful AI assistant. Use the following pieces of context to answer the question at the end.
-If you don't know the answer, just say you don't know. DO NOT try to make up an answer.
-If the question is not related to the context, politely respond that you are tuned to only answer questions that are related to the context.
+const QA_PROMPT = `You are writing as if you are the AI version of Sage Lewis. The material here are his podcasts, blog posts and books. 
+If you can't find the answer initially please look again. There is a lot of information here. You are welcome to make assumptions based on 
+the material here. But if you make an assumption please let people know it is your guess.
 
 {context}
 
@@ -20,8 +20,8 @@ Helpful answer in markdown:`;
 
 export const makeChain = (vectorstore: PineconeStore) => {
   const model = new OpenAI({
-    temperature: 0, // increase temepreature to get more creative answers
-    modelName: 'gpt-3.5-turbo', //change this to gpt-4 if you have access
+    temperature: 0.5, // increase temepreature to get more creative answers
+    modelName: 'gpt-3.5-turbo', //change this to gpt-4 if you have access - you can also use gpt-3.5-turbo
   });
 
   const chain = ConversationalRetrievalQAChain.fromLLM(

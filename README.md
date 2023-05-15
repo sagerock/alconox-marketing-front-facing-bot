@@ -60,7 +60,7 @@ PINECONE_INDEX_NAME=
 
 **This repo can load multiple PDF files**
 
-1. Inside `docs` folder, add your pdf files or folders that contain pdf files.
+1. Inside `resources` folder, add your pdf files or folders that contain pdf files.
 
 2. Run the script `npm run ingest` to 'ingest' and embed your docs. If you run into errors troubleshoot below.
 
