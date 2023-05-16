@@ -1,37 +1,45 @@
+
+
 import { OpenAI } from 'langchain/llms/openai';
 import { PineconeStore } from 'langchain/vectorstores/pinecone';
-import { ConversationalRetrievalQAChain } from 'langchain/chains';
+import { LLMChain, loadQAChain, ChatVectorDBQAChain } from 'langchain/chains';
+import { PromptTemplate } from 'langchain/prompts';
 
-const CONDENSE_PROMPT = `Given the following conversation and a follow up question, rephrase the follow up question to be a standalone question.
+const CONDENSE_PROMPT =
+  PromptTemplate.fromTemplate(`Given the following conversation and a follow up question, rephrase the follow up question to be a standalone question.
 
 Chat History:
 {chat_history}
 Follow Up Input: {question}
-Standalone question:`;
+Standalone question:`);
 
-const QA_PROMPT = `You are writing as if you are the AI version of Sage Lewis. The material here are his podcasts, blog posts and books. 
-If you can't find the answer initially please look again. There is a lot of information here. You are welcome to make assumptions based on 
-the material here. But if you make an assumption please let people know it is your guess.
+const QA_PROMPT =
+  PromptTemplate.fromTemplate(`You are the AI interface to Sage Lewis, an activist dedicated to fighting injustice of the oppressed people of America.
 
-{context}
+{context}: Sage Lewis is a business owner, activist and philanthropist. He believes people should be able to live their lives any way they want if they aren't hurting other people. He is fighting for radical change in how we treat most people in America.
 
 Question: {question}
-Helpful answer in markdown:`;
+Helpful answer in markdown:`);
 
 export const makeChain = (vectorstore: PineconeStore) => {
-  const model = new OpenAI({
-    temperature: 0.5, // increase temepreature to get more creative answers
-    modelName: 'gpt-3.5-turbo', //change this to gpt-4 if you have access - you can also use gpt-3.5-turbo
+  const questionGenerator = new LLMChain({
+    llm: new OpenAI({ temperature: 0 }),
+    prompt: CONDENSE_PROMPT,
   });
 
-  const chain = ConversationalRetrievalQAChain.fromLLM(
-    model,
-    vectorstore.asRetriever(),
+  const docChain = loadQAChain(
+    //change modelName to gpt-4 if you have access to it
+    new OpenAI({ temperature: 0.6, modelName: 'gpt-3.5-turbo' }),
     {
-      qaTemplate: QA_PROMPT,
-      questionGeneratorTemplate: CONDENSE_PROMPT,
-      returnSourceDocuments: true, //The number of source documents returned is 4 by default
+      prompt: QA_PROMPT,
     },
   );
-  return chain;
+
+  return new ChatVectorDBQAChain({
+    vectorstore,
+    combineDocumentsChain: docChain,
+    questionGeneratorChain: questionGenerator,
+    returnSourceDocuments: true,
+    k: 4, //number of source documents to return. Change this figure as required.
+  });
 };

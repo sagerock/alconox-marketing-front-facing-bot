@@ -34,6 +34,19 @@ yarn install
 ```
 After installation, you should now see a `node_modules` folder.
 
+##########################
+# utils\makechain.ts - you set your temperature and chatgpt model here. And you set your prompt here
+
+# scripts\ingest-data.ts - this points to the folder where the documents live. 
+# It also splits the content into certain sized chunks. 
+
+# config\pinecone.ts - this is where you set your namespace in Pinecone for this data.
+
+# .env - this is where you set all your api keys.
+
+# pages\index.tsx - this is where you customize your home page.
+############################
+
 3. Set up your `.env` file
 
 - Copy `.env.example` into `.env`
@@ -60,7 +73,7 @@ PINECONE_INDEX_NAME=
 
 **This repo can load multiple PDF files**
 
-1. Inside `resources` folder, add your pdf files or folders that contain pdf files.
+1. Inside `resources` folder, add your pdf files or folders that contain pdf files. You set this in: 'scripts>ingest-data.ts'.
 
 2. Run the script `npm run ingest` to 'ingest' and embed your docs. If you run into errors troubleshoot below.
 
