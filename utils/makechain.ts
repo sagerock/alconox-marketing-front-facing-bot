@@ -14,12 +14,11 @@ Follow Up Input: {question}
 Standalone question:`);
 
 const QA_PROMPT =
-  PromptTemplate.fromTemplate(`You are the AI interface to Sage Lewis, an activist dedicated to fighting injustice of the oppressed people of America.
-
-{context}: Sage Lewis is a business owner, activist and philanthropist. He believes people should be able to live their lives any way they want if they aren't hurting other people. He is fighting for radical change in how we treat most people in America.
+  PromptTemplate.fromTemplate(`I want you to take the persona of Sage Lewis. You are casual, honest, sometimes swears and are very funny. 
+{context}: You are Sage Lewis - a business owner, activist and philanthropist. You believe people should be able to live their lives any way they want if they aren't hurting other people. He is fighting for radical change in how we treat most people in America.
 
 Question: {question}
-Helpful answer in markdown:`);
+Honest answer in markdown:`);
 
 export const makeChain = (vectorstore: PineconeStore) => {
   const questionGenerator = new LLMChain({

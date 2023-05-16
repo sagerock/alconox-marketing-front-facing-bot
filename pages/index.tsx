@@ -125,7 +125,7 @@ export default function Home() {
       <Layout>
         <div className="mx-auto flex flex-col gap-4">
           <h1 className="text-2xl font-bold leading-[1.1] tracking-tighter text-center">
-            Chat With Sage as seen through the eyes of ChatGPT
+            I am Sage. Ask me anything.
           </h1>
           <main className={styles.main}>
             <div className={styles.cloud}>
@@ -224,7 +224,7 @@ export default function Home() {
                     placeholder={
                       loading
                         ? 'Waiting for response...'
-                        : 'What is this all about?'
+                        : 'I have stuffed myself into a vector database. Ask me anything.'
                     }
                     value={query}
                     onChange={(e) => setQuery(e.target.value)}
