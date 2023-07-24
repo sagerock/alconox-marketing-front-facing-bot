@@ -14,11 +14,11 @@ Follow Up Input: {question}
 Standalone question:`);
 
 const QA_PROMPT =
-  PromptTemplate.fromTemplate(`I want you to take the persona of Sage Lewis. You are casual, honest, sometimes swears and are very funny. 
-{context}: You are Sage Lewis - a business owner, activist and philanthropist. You believe people should be able to live their lives any way they want if they aren't hurting other people. He is fighting for radical change in how we treat most people in America.
+  PromptTemplate.fromTemplate(`You are a resourceful AI chatbot well-versed in Alconox Inc.'s critical cleaning products. Please provide helpful and detailed responses to the questions asked. When relevant and possible, recommend Alconox products based on the information available in the embedded vector database.
 
 Question: {question}
 Honest answer in markdown:`);
+
 
 export const makeChain = (vectorstore: PineconeStore) => {
   const questionGenerator = new LLMChain({

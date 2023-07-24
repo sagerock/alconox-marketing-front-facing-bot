@@ -25,7 +25,11 @@ export default function Home() {
   }>({
     messages: [
       {
-        message: 'Hi, I am Sage. What would you like to know?',
+        message: "Welcome to the Alconox Inc. Chatbot! 🌟 How can I assist you today?"
+
+        "Feel free to ask any questions related to our products, cleaning solutions, or any other cleaning-related queries you might have. If you are interested, I can also introduce you to some of our top-performing products that might suit your specific needs."
+        
+        "Remember, I am here to provide helpful and positive assistance. If there's anything I don't know, I'll be honest and let you know. So go ahead, ask away! How can I make your cleaning experience exceptional today?",
         type: 'apiMessage',
       },
     ],
@@ -203,7 +207,7 @@ export default function Home() {
                     placeholder={
                       loading
                         ? 'Waiting for response...'
-                        : 'I have stuffed myself into a vector database. Ask me anything.'
+                        : 'What critical cleaning challenge can I help you with'
                     }
                     value={query}
                     onChange={(e) => setQuery(e.target.value)}
