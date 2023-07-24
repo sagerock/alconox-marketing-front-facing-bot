@@ -239,11 +239,6 @@ export default function Home() {
             )}
           </main>
         </div>
-        <footer className="m-auto p-4">
-          <a href="https://sagelewis.com/">
-            Powered by Sage Lewis and <a href="https://sagerock.com/sagerock-ai/">SageRock AI Consulting</a>
-          </a>
-        </footer>
       </Layout>
     </>
   );
